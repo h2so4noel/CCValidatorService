@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 
 import model.ServiceHandler;
 
@@ -43,6 +44,8 @@ public class MainUI extends JFrame implements Runnable {
 	JButton validate;
 	
 	String response;
+	
+	LoadValidation validation;
 	/**
 	 * Constructor for this class.
 	 * Injects ServiceHandler to use in UI.
@@ -113,17 +116,32 @@ public class MainUI extends JFrame implements Runnable {
 	private void addListener(){
 		validate.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
-				try {
-					String cardType = typeBox.getSelectedItem().toString();
-					String cardNumber = numberF.getText();
-					response = handler.validate(cardType, cardNumber);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				resultF.setText(response);
+				if(validation != null)
+					validation.cancel(true);
+				validation = new LoadValidation();
+				validation.execute();
 			}
 		});
 	}
+	
+	class LoadValidation extends SwingWorker<String, Object>{
+
+		@Override
+		protected String doInBackground() throws Exception {
+			String cardType = typeBox.getSelectedItem().toString();
+			String cardNumber = numberF.getText();
+			response = handler.validate(cardType, cardNumber);
+			return response;
+		}
+		
+		@Override
+		protected void done(){
+			resultF.setText(response);
+			super.done();
+		}
+		
+	}
+	
 	/**
 	 * Set the layout for overall window.
 	 */
