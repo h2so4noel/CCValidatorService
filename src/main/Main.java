@@ -12,7 +12,7 @@ public class Main {
 
 	/**
 	 * Main method.
-	 * Create components and run them.
+	 * Create a service handler, UI, inject service into UI and run them.
 	 * @param args
 	 */
 	public static void main(String[] args) {

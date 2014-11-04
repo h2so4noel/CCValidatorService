@@ -86,6 +86,7 @@ public class MainUI extends JFrame implements Runnable {
 		
 		numberF = new JTextField(15);
 		resultF = new JTextField(19);
+		resultF.setEditable(false);
 		
 		validate = new JButton("Validate");
 	}

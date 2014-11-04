@@ -26,7 +26,12 @@ public class ServiceHandler {
 		factory = new CCChecker();
 		soap = factory.getCCCheckerSoap();
 	}
-	
+	/**
+	 * Validate the Credit Card by sending request to the SOAP service.
+	 * @param cardType is type of the credit card.
+	 * @param cardNumber is number of the credit card.
+	 * @return String indicating the status of that credit card.
+	 */
 	public String validate(String cardType, String cardNumber){
 		return soap.validateCardNumber(cardType, cardNumber);
 	}
