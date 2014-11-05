@@ -124,6 +124,10 @@ public class MainUI extends JFrame implements Runnable {
 		});
 	}
 	
+	/**
+	 * SwingWorker class.
+	 * Use in taking care of threads to prevent errors from internet disconnection.
+	 */
 	class LoadValidation extends SwingWorker<String, Object>{
 
 		@Override
